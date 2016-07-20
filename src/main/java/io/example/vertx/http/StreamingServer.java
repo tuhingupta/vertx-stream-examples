@@ -104,7 +104,7 @@ public class StreamingServer extends AbstractVerticle {
 							try{
 							
 							//print output	
-							System.out.println(m.group());
+						//	System.out.println(m.group());
 								
 							}catch(Exception ex){
 								ex.printStackTrace();
