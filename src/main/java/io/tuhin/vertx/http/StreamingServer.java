@@ -1,11 +1,11 @@
-package io.example.vertx.chunked;
+package io.tuhin.vertx.http;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.example.vertx.util.Runner;
+import io.tuhin.vertx.util.Runner;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
@@ -16,9 +16,10 @@ import io.vertx.core.http.HttpServerRequest;
  * @author Tuhin Gupta
  * April 2016
  * 
- * Vertx.io server to recieve chunked request. 
- * See that header has Transfer-Encoding value set as chunked.
- * Example: Transfer-Encoding : chunked 
+ * Vertx.io server to recieve steam over HTTP request.
+ * This is un-chunked version so content-length is received from client. 
+ * See that header has content-length value set.
+ * Example: content-length : 8766456
  */
 public class StreamingServer extends AbstractVerticle {
 	
@@ -73,9 +74,9 @@ public class StreamingServer extends AbstractVerticle {
 						 * Headers returned:-
 						 * 
 						 * Host : localhost:9977
-						 * Transfer-Encoding : chunked
+						 * content-length : 8766456
 						 * 
-						 * 
+						 *
 						for (String key : request.headers().names()) 
 						{
 							System.out.println(key+" : "+request.getHeader(key));
@@ -103,7 +104,7 @@ public class StreamingServer extends AbstractVerticle {
 							try{
 							
 							//print output	
-							System.out.println(m.group());
+						//	System.out.println(m.group());
 								
 							}catch(Exception ex){
 								ex.printStackTrace();

@@ -1,7 +1,7 @@
-package io.example.vertx.http;
+package io.tuhin.vertx.http;
 
 
-import io.example.vertx.util.Runner;
+import io.tuhin.vertx.util.Runner;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.file.AsyncFile;
 import io.vertx.core.file.FileProps;

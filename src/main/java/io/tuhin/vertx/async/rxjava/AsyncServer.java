@@ -1,9 +1,9 @@
 
-package io.example.vertx.async.rxjava;
+package io.tuhin.vertx.async.rxjava;
 
 
 
-import io.example.vertx.util.Runner;
+import io.tuhin.vertx.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.core.http.HttpServer;
 
@@ -22,8 +22,7 @@ public class AsyncServer extends AbstractVerticle {
 	  }
 
 
-	/* (non-Javadoc)
-	 * @see io.vertx.core.AbstractVerticle#start()
+	/* 
 	 */
 	@Override
 	  public void start() throws Exception {
@@ -35,7 +34,10 @@ public class AsyncServer extends AbstractVerticle {
 		vertx.createHttpServer().requestHandler(request -> {
 			
 			System.out.println("vertx main "+Thread.currentThread());
+			
 			//here a separate thread would run, an alternate way is to use worker verticle
+			//this would be a worker thread and not the main kernel vertx thread.
+			//so main thread is still non blocking but we can execute blocking code using executeBlocking
 			vertx.<String>executeBlocking(future -> {
 				
 					//This is an imaginary blocking operation
@@ -45,7 +47,7 @@ public class AsyncServer extends AbstractVerticle {
 					//complete the async operation
 					future.complete(result);
 					
-			}, result -> {
+			}, result -> {//when the blocking action is complete and time to process response now.
 				if(result.succeeded()){
 					request.response().putHeader("content-type", "text/plain").end(result.result());
 				} else {
@@ -61,7 +63,13 @@ public class AsyncServer extends AbstractVerticle {
 
 	  }//start
 	
-	
+	/**
+	 * 
+	 * @author Tuhin Gupta
+	 * 
+	 * just a rock -\o/-
+	 *
+	 */
 	public class NestedThreadClass{
 		
 		public String doThread(){
